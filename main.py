@@ -31,10 +31,11 @@ if not len(sys.argv) == 1:
 
         worksheet = spreadsheet.worksheet_by_title(sheet_title)
         sheet_values = worksheet.all_values()
-        available_columns = sheet_values[0]
+        available_columns = [i.lower() for i in sheet_values[0]]
 
         if 'date' not in available_columns or 'visitors' not in available_columns:
-            print('{} worksheet has incorrect spreadsheet. Skipping...'.format(sheet_title))
+            print('"date" or "visitors" column is absent'
+                  ' in {} worksheet. Skipping processing...'.format(sheet_title))
             break
 
         visitors_position = available_columns.index('visitors') + 1
